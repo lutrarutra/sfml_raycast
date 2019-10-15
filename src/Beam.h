@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "Line.h"
 #include "Wall.h"
 
@@ -10,7 +11,7 @@ public:
     Beam(int x, int y, float angle);
     void draw(sf::RenderWindow &window) const;
     void move(int x, int y);
-    void checkCollision(Wall &wall);
+    void checkCollision(const Wall &wall);
     ~Beam();
 
 private:

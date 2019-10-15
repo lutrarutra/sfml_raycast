@@ -9,6 +9,12 @@ public:
     Line(int x1, int y1, float angle, int thickness);
     void draw(sf::RenderWindow &window) const;
     void move(int x, int y);
+    int getX1() const { return m_x1; }
+    int getY1() const { return m_y1; }
+    int getX2() const { return m_x2; }
+    int getY2() const { return m_y2; }
+    void setLength(float len);
+    void setEndPoint(int x, int y);
     ~Line();
 
 private:

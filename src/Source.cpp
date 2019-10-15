@@ -26,6 +26,17 @@ void Source::draw(sf::RenderWindow &window) const
     }
 }
 
+void Source::checkWalls(const std::vector<Wall> &walls)
+{
+    for(const auto& wall : walls)
+    {
+        for(auto& beam : m_beams)
+        {
+            beam.checkCollision(wall);
+        }
+    }
+}
+
 Source::~Source()
 {
 }
