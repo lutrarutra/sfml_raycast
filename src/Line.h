@@ -1,26 +1,41 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Point.h"
+
+#define _USE_MATH_DEFINES
+
+#ifndef WINDOW_WIDTH
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
+#endif 
 
 class Line
 {
 public:
     Line(int x1, int y1, int x2, int y2, int thickness);
     Line(int x1, int y1, float angle, int thickness);
-    void draw(sf::RenderWindow &window) const;
-    void move(int x, int y);
-    int getX1() const { return m_x1; }
-    int getY1() const { return m_y1; }
-    int getX2() const { return m_x2; }
-    int getY2() const { return m_y2; }
-    void setLength(float len);
-    void setEndPoint(int x, int y);
-    ~Line();
-
+    Line(Point& p1, Point& p2, int thickness);
+    virtual void Draw(sf::RenderWindow &window) const;
+    void Move(Point& destination);
+    void SetLength(float len);
+    void SetEndPoint(Point& point);
+    bool Contains(const Point& point) const;
+    void UpdateAngle();
+    virtual ~Line();
+    
 private:
-    void init();
-    void calculateEndPoints();
-    int m_x1, m_y1, m_x2, m_y2, m_thickness;
-    float m_angle;
+    void InitRectangle(sf::Color color);
+    void CalculateEndPoint();
+private:
     sf::RectangleShape m_rect;
+protected:
+    int m_thickness;
+    float m_angle;
+public:
+    Point firstPoint;
+    Point secondPoint;
 };
+
+
+

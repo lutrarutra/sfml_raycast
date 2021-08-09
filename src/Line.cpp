@@ -1,86 +1,104 @@
-#include <math.h>
-#include <iostream>
 #include "Line.h"
 
-#define PI 3.14159265
-#define RAD 3.14159265 / 180.0
+#define RAD M_PI / 180.0
 
-#define SX 1280
-#define SY 720
 
 Line::Line(int x1, int y1, int x2, int y2, int thickness)
-    : m_x1(x1), m_y1(y1), m_x2(x2), m_y2(y2), m_thickness(thickness), m_rect(sf::Vector2f(sqrt(pow(float(m_x2 - m_x1), 2) + pow(float(m_y2 - m_y1), 2)), m_thickness))
+    : firstPoint(x1, y1), secondPoint(x2, y2), m_thickness(thickness),
+    m_rect(sf::Vector2f(sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2)), thickness))
 {
-    m_angle = atan(float(m_y2 - m_y1) / float(m_x2 - m_x1)) * 180 / PI;
-    init();
-    m_rect.setFillColor(sf::Color(255, 255, 255, 250));
+    UpdateAngle();
+    InitRectangle(sf::Color(255, 255, 255, 250));
 }
 
 Line::Line(int x1, int y1, float angle, int thickness)
-    : m_x1(x1), m_y1(y1), m_angle(angle), m_thickness(thickness), m_rect(sf::Vector2f(sqrt(pow(SX, 2) + pow(SY, 2)), thickness))
+    : firstPoint(x1, y1), m_angle(angle), m_thickness(thickness),
+      m_rect(sf::Vector2f(sqrt(pow(WINDOW_WIDTH, 2) + pow(WINDOW_HEIGHT, 2)), thickness))
 {
-    init();
-    calculateEndPoints();
-    m_rect.setFillColor(sf::Color(255, 255, 255, 50));
+    InitRectangle(sf::Color(255, 255, 255, 50));
+    CalculateEndPoint();
 }
 
-void Line::setLength(float len)
+Line::Line(Point& p1, Point& p2, int thickness)
+    : firstPoint(p1), secondPoint(p2),
+    m_thickness(thickness)
 {
-    m_rect.setSize(sf::Vector2f(len, m_thickness));
+    UpdateAngle();
+    InitRectangle(sf::Color(255, 255, 255, 250));
 }
 
-void Line::setEndPoint(int x, int y)
+void Line::Move(Point& destination)
 {
-    m_x2 = x;
-    m_y2 = y;
-    m_rect.setSize(sf::Vector2f(sqrt(pow(float(m_x2 - m_x1), 2) + pow(float(m_y2 - m_y1), 2)), m_thickness));
+    secondPoint += destination - firstPoint;
+    firstPoint = destination;
+    m_rect.setPosition(firstPoint);
 }
 
-void Line::calculateEndPoints()
+void Line::InitRectangle(sf::Color color)
 {
-    float hypo = sqrt(pow(m_rect.getSize().x, 2) + pow(m_rect.getSize().y, 2));
-    if (m_angle >= 0 && m_angle <= 90)
-    {
-        m_x2 = m_x1 + cos(m_angle * RAD) * hypo;
-        m_y2 = m_y1 + sin(m_angle * RAD) * hypo;
-    }
-    else if (m_angle >= 90 && m_angle <= 180)
-    {
-        m_x2 = m_x1 - cos((180-m_angle) * RAD) * hypo;
-        m_y2 = m_y1 + sin((180-m_angle) * RAD) * hypo;
-    }
-    else if (m_angle >= 180 && m_angle <= 270)
-    {
-        m_x2 = m_x1 - cos((m_angle-180) * RAD) * hypo;
-        m_y2 = m_y1 - sin((m_angle-180) * RAD) * hypo;
-    }
-    else
-    {
-        m_x2 = m_x1 + cos((360-m_angle) * RAD) * hypo;
-        m_y2 = m_y1 - sin((360-m_angle) * RAD) * hypo;
-    }
-}
-
-void Line::move(int x, int y)
-{
-    m_x1 = x;
-    m_y1 = y;
-    calculateEndPoints();
-    //std::cout << m_x2 << " " << m_y2 << std::endl;
-    m_rect.setPosition(sf::Vector2f(m_x1, m_y1));
-}
-
-void Line::init()
-{
+    m_rect.setFillColor(color);
     m_rect.setOrigin(0, m_thickness / 2);
-    m_rect.setPosition(sf::Vector2f(m_x1, m_y1));
-    m_rect.rotate(m_angle);
+    m_rect.setPosition(firstPoint.x, firstPoint.y);
+    m_rect.setRotation(m_angle);
 }
 
-void Line::draw(sf::RenderWindow &window) const
+void Line::Draw(sf::RenderWindow& window) const
 {
     window.draw(m_rect);
 }
+
+void Line::UpdateAngle()
+{
+    m_angle = atan((secondPoint.y - firstPoint.y) / (secondPoint.x - firstPoint.x)) * 180 / M_PI + 180 * (secondPoint.x < firstPoint.x); // adding 180 degrees if the second point is in II or III quarters
+    m_rect.setRotation(m_angle);
+}
+
+void Line::SetLength(float length)
+{
+    secondPoint.x = firstPoint.x + cos(m_angle * RAD) * length;
+    secondPoint.y = firstPoint.y + sin(m_angle * RAD) * length;
+    m_rect.setSize(sf::Vector2f(length, m_thickness));
+}
+
+void Line::SetEndPoint(Point& point)
+{
+    secondPoint = point;
+    UpdateAngle();
+    SetLength(Point::DistanceBetween(firstPoint, secondPoint));
+}
+
+void Line::CalculateEndPoint()
+{
+    float length = sqrt(pow(m_rect.getSize().x, 2) + pow(m_rect.getSize().y, 2));
+    secondPoint.x = firstPoint.x + cos(m_angle * RAD) * length;
+    secondPoint.y = firstPoint.y + sin(m_angle * RAD) * length;
+}
+
+bool Line::Contains(const Point& point) const
+{
+    static const float epsilon = 0.01;
+    if (((point.x >= firstPoint.x && point.x <= secondPoint.x) || (point.x > secondPoint.x && point.x < firstPoint.x)) &&
+          point.y >= firstPoint.y && point.y <= secondPoint.y  ||  point.y > secondPoint.y && point.y < firstPoint.y)
+    {
+        if (secondPoint.y - firstPoint.y == 0)
+        {
+            if (point.y == secondPoint.y)
+                return true;
+            return false;
+        }
+        if (secondPoint.x - firstPoint.x == 0)
+        {
+            if (point.x == secondPoint.x)
+                return true;
+            return false;
+        }
+        if(abs( (point.y - firstPoint.y) / (secondPoint.y - firstPoint.y) - 
+                (point.x - firstPoint.x) / (secondPoint.x - firstPoint.x) ) < epsilon)
+            return true;
+    }
+    return false;
+}
+
 
 Line::~Line()
 {
