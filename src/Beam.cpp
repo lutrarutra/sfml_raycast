@@ -20,8 +20,11 @@ void Beam::checkCollision(const std::vector<Wall>& walls)
 
     for (auto& wall : walls)
     {
-        float k_wall = (wall.secondPoint.x - wall.firstPoint.x) == 0 ? INF : (wall.secondPoint.y - wall.firstPoint.y) / (wall.secondPoint.x - wall.firstPoint.x);
-        float b_wall = (wall.secondPoint.x - wall.firstPoint.x) == 0 ? -INF : wall.firstPoint.y - k_wall * wall.firstPoint.x;
+        float k_wall = (wall.secondPoint.x - wall.firstPoint.x) == 0 ? INF :
+            (wall.secondPoint.y - wall.firstPoint.y) / (wall.secondPoint.x - wall.firstPoint.x);
+        float b_wall = (wall.secondPoint.x - wall.firstPoint.x) == 0 ? -INF :
+            wall.firstPoint.y - k_wall * wall.firstPoint.x;
+
         Point intercept(0, 0);
 
         if (k_beam == INF)

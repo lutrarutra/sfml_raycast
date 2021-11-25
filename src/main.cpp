@@ -14,11 +14,10 @@
 
 int main()
 {
-    std::cout << "Hello" << std::endl;
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "project_name", sf::Style::Close, settings);
-    Source s(200, 650, 1080);
+    Source s(200, 650, 720);
 
     std::vector<Wall> walls;
     walls.reserve(4);

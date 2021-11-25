@@ -3,8 +3,10 @@
 #define RAD M_PI / 180.0
 
 
-Line::Line(int x1, int y1, int x2, int y2, int thickness)
-    : firstPoint(x1, y1), secondPoint(x2, y2), m_thickness(thickness),
+Line::Line(int x1, int y1, int x2, int y2, int thickness) : 
+    firstPoint(x1, y1),
+    secondPoint(x2, y2),
+    m_thickness(thickness),
     m_rect(sf::Vector2f(sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2)), thickness))
 {
     UpdateAngle();

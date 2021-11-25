@@ -1,4 +1,0 @@
-﻿  main.cpp
-H:\SFML projects\Not mine\Raycast\src\Point.h(10,20): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-H:\SFML projects\Not mine\Raycast\src\Point.h(14,20): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  Raycast.vcxproj -> H:\SFML projects\Not mine\Raycast\x64\Debug\Raycast.exe
