@@ -12,7 +12,6 @@ void Beam::checkCollision(const std::vector<Wall>& walls)
     if (secondPoint.x < WINDOW_WIDTH && secondPoint.x > 0 && secondPoint.y < WINDOW_HEIGHT && secondPoint.y > 0)
         this->SetLength(WINDOW_WIDTH + WINDOW_HEIGHT);
     
-
     // calculating coefficients for equation y = kx + b
     // if two points are on one parallel to y line, assign k = INF
     float k_beam = (secondPoint.x - firstPoint.x) == 0 ? INF : (secondPoint.y - firstPoint.y) / (secondPoint.x - firstPoint.x);

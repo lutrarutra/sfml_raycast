@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)thirdparty\SFML\bin;$(SolutionDir)thirdparty\SFML\lib;$(SolutionDir)thirdparty\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)thirdparty;$(SolutionDir)thirdparty\SFML\bin;$(SolutionDir)thirdparty\SFML\lib;$(SolutionDir)thirdparty\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,13 +136,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)thirdparty\SFML\bin;$(SolutionDir)thirdparty\SFML\lib;$(SolutionDir)thirdparty\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)thirdparty\ImGui;$(SolutionDir)thirdparty;$(SolutionDir)thirdparty\SFML\bin;$(SolutionDir)thirdparty\SFML\lib;$(SolutionDir)thirdparty\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenGL32.lib;GLu32.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)thirdparty\SFML\bin;$(SolutionDir)thirdparty\SFML\lib;</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -157,7 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)thirdparty\SFML\bin;$(SolutionDir)thirdparty\SFML\lib;$(SolutionDir)thirdparty\SFML\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)thirdparty\ImGui;$(SolutionDir)thirdparty;$(SolutionDir)thirdparty\SFML\bin;$(SolutionDir)thirdparty\SFML\lib;$(SolutionDir)thirdparty\SFML\include;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -165,7 +165,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-system.lib;sfml-window.lib;sfml-graphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenGL32.lib;GLu32.lib;sfml-system.lib;sfml-window.lib;sfml-graphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)thirdparty\SFML\bin;$(SolutionDir)thirdparty\SFML\lib;</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -174,17 +174,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Beam.cpp" />
+    <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\Line.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Source.cpp" />
     <ClCompile Include="..\src\Wall.cpp" />
+    <ClCompile Include="..\thirdparty\ImGui\imgui.cpp" />
+    <ClCompile Include="..\thirdparty\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="..\thirdparty\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="..\thirdparty\ImGui\ImGui_SFML\imgui-SFML.cpp" />
+    <ClCompile Include="..\thirdparty\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="..\thirdparty\ImGui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Beam.h" />
+    <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\Line.h" />
     <ClInclude Include="..\src\Point.h" />
+    <ClInclude Include="..\src\proj_data.h" />
     <ClInclude Include="..\src\Source.h" />
     <ClInclude Include="..\src\Wall.h" />
+    <ClInclude Include="..\thirdparty\ImGui\imgui.h" />
+    <ClInclude Include="..\thirdparty\ImGui\imgui_internal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

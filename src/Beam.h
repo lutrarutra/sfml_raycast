@@ -1,7 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <vector>
+#include "proj_data.h"
 #include "Line.h"
 #include "Wall.h"
 

@@ -1,14 +1,8 @@
 #pragma once
-
-#include <SFML/Graphics.hpp>
+#include "proj_data.h"
 #include "Point.h"
 
 #define _USE_MATH_DEFINES
-
-#ifndef WINDOW_WIDTH
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
-#endif 
 
 class Line
 {
@@ -20,6 +14,7 @@ public:
     void Move(Point& destination);
     void SetLength(float len);
     void SetEndPoint(Point& point);
+    void SetColor( sf::Color& color );
     bool Contains(const Point& point) const;
     void UpdateAngle();
     virtual ~Line();

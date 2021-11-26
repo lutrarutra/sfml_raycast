@@ -23,10 +23,11 @@ Line::Line(int x1, int y1, float angle, int thickness)
 
 Line::Line(Point& p1, Point& p2, int thickness)
     : firstPoint(p1), secondPoint(p2),
-    m_thickness(thickness)
+    m_thickness(thickness),
+    m_rect( sf::Vector2f( p1.DistanceTo(p2), thickness ) )
 {
     UpdateAngle();
-    InitRectangle(sf::Color(255, 255, 255, 250));
+    InitRectangle(sf::Color::White);
 }
 
 void Line::Move(Point& destination)
@@ -67,6 +68,11 @@ void Line::SetEndPoint(Point& point)
     secondPoint = point;
     UpdateAngle();
     SetLength(Point::DistanceBetween(firstPoint, secondPoint));
+}
+
+void Line::SetColor( sf::Color& color )
+{
+    m_rect.setFillColor( color );
 }
 
 void Line::CalculateEndPoint()

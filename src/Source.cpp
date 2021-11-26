@@ -10,6 +10,8 @@ Source::Source(int x, int y, int beamCount) : m_point(x, y), m_beamCount(beamCou
     }
 }
 
+Source::Source() : Source( 0, 0, DEFAULT_BEAM_COUNT ) { }
+
 void Source::Move(Point destination)
 {
     for (int i = 0; i < m_beamCount; ++i)
@@ -32,6 +34,25 @@ void Source::checkWalls(const std::vector<Wall> &walls)
     {
         beam.checkCollision(walls);
     } 
+}
+
+void Source::SetBeamCount( int count )
+{
+    m_beamCount = count;
+    m_beams.clear();
+    m_beams.reserve( m_beamCount );
+    for ( int i = 0; i < m_beamCount; ++i )
+    {
+        m_beams.emplace_back( m_point.x, m_point.y, (360.f / m_beamCount) * i );
+    }
+}
+
+void Source::SetBeamColor( sf::Color& color )
+{
+    for ( auto& beam : m_beams )
+    {
+        beam.SetColor( color );
+    }
 }
 
 Source::~Source()
