@@ -3,6 +3,7 @@
 #include "Point.h"
 
 #define _USE_MATH_DEFINES
+#define INF INT32_MAX
 
 class Line
 {
@@ -16,6 +17,11 @@ public:
     void SetEndPoint(Point& point);
     void SetColor( sf::Color& color );
     bool Contains(const Point& point) const;
+
+    Point FindInterception( const Line& l2 ) const;
+
+    sf::Vector2f FindKBCoeffs() const;
+
     void UpdateAngle();
     virtual ~Line();
     
@@ -27,7 +33,7 @@ private:
 protected:
     int m_thickness;
     float m_angle;
-public:
+protected:
     Point firstPoint;
     Point secondPoint;
 };
