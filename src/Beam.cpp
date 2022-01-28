@@ -24,7 +24,7 @@ void Beam::checkCollision(const std::vector<Wall>& walls)
         float k_wall = wallKBCoefs.x;
         float b_wall = wallKBCoefs.y;
 
-        Point intercept = FindInterception(wall);
+        Point intercept = FindIntersection(wall);
         
         if ( intercept.x == INF )
             continue;

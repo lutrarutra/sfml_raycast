@@ -18,7 +18,7 @@ static IDXGISwapChain*          g_pSwapChain = NULL;
 static ID3D11RenderTargetView*  g_mainRenderTargetView = NULL;
 
 // Forward declarations of helper functions
-bool CreateDeviceD3D(HWND hWnd);
+bool createDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
@@ -44,7 +44,7 @@ int main(int, char**)
     HWND hwnd = (HWND)wmInfo.info.win.window;
 
     // Initialize Direct3D
-    if (!CreateDeviceD3D(hwnd))
+    if (!createDeviceD3D(hwnd))
     {
         CleanupDeviceD3D();
         return 1;
@@ -178,7 +178,7 @@ int main(int, char**)
 
 // Helper functions
 
-bool CreateDeviceD3D(HWND hWnd)
+bool createDeviceD3D(HWND hWnd)
 {
     // Setup swap chain
     DXGI_SWAP_CHAIN_DESC sd;

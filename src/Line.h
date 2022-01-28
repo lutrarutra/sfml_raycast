@@ -18,7 +18,7 @@ public:
     void SetColor( sf::Color& color );
     bool Contains(const Point& point) const;
 
-    Point FindInterception( const Line& l2 ) const;
+    Point FindIntersection( const Line& l2 ) const;
 
     sf::Vector2f FindKBCoeffs() const;
 

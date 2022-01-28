@@ -109,7 +109,7 @@ bool Line::Contains(const Point& point) const
     return false;
 }
 
-Point Line::FindInterception( const Line& l2 ) const
+Point Line::FindIntersection( const Line& l2 ) const
 {
     Point intercept( INF, INF );
 
