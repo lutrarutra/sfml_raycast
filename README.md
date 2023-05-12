@@ -9,7 +9,7 @@ Skeleton project folder for building SFML-project with CMake
 2. Open terminal inside of the project
 3. `mkdir build` -  to make "build" directory inside of project folder
 4. `cd ./build` - go inside of "build" folder
-5. `cmake ./../'` - to link files
+5. `cmake ./../` - to link files
 6. `make` - to build project
 7. `./a` - to display output
 
